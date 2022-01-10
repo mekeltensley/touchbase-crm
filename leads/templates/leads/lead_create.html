@@ -10,7 +10,11 @@
 <body>
     <a href="/leads/">Go back to leads</a>
     <hr />
-    <h1>This is the details of {{ lead.first_name }}</h1>
-    <p> This here email: {{ lead.email }}
+    <h1>Crete a new lead</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>   
 </body>
 </html>
