@@ -1,14 +1,30 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
+from django.views.generic import TemplateView, CreateView, ListView
+from django.views.generic.detail import DetailView
 from .models import Lead, Contact_Rep
 from .forms import LeadForm, LeadModelForm
 
 
-# function based views
+
+# Landing Page View
+class LandingPageView(TemplateView):
+    template_name = "landing.html"
+
+
+# displays each lead by primary key
+def landing_page(request):
+    return render(request, "landing.html")
+
+# Lead List View 
+
+class LeadListView(ListView):
+    template_name = "leads/lead_list.html"
+    queryset = Lead.objects.all()
+    context_object_name = "leads"
+
 
 # renders list of leads
-
-
 def lead_list(request):
     # Returns a query set from the database
     # leads is  list of objects
@@ -16,8 +32,10 @@ def lead_list(request):
     context = {"leads": leads}
     return render(request, "leads/lead_list.html", context)
 
-
-# displays each lead by primary key
+class LeadDetailView(DetailView):
+    template_name = "leads/lead_list.html"
+    query_set = Lead.objects.all()
+    context_object_name = "lead"
 
 
 def lead_detail(request, pk):
@@ -25,6 +43,13 @@ def lead_detail(request, pk):
     context = {"lead": lead}
 
     return render(request, "leads/lead_detail.html", context)
+
+class LeadCreateView(CreateView):
+    template_name = "leads/lead_create.html"
+    form_class = LeadModelForm
+    
+    def get_success_url(self):
+         return reverse("leads:lead-list") 
 
 
 def lead_create(request):
@@ -60,26 +85,3 @@ def lead_delete(request, pk):
     lead.delete()
     return redirect("/leads")
 
-
-# def lead_update(request, pk):
-#     lead = Lead.objects.get(id=pk)
-#     form = LeadForm()
-#     if request.method == "POST":
-#         form = LeadForm(request.POST)
-#         if form.is_valid():
-#             email = form.cleaned_data['email']
-#             first_name = form.cleaned_data['first_name']
-#             last_name = form.cleaned_data['last_name']
-#             phone_number = form.cleaned_data['phone_number']
-#             # Updates these field only
-#             lead.email = email
-#             lead.first_name = first_name
-#             lead.last_name = last_name
-#             lead.phone_number = phone_number
-#             lead.save()
-#             return redirect("/leads")
-#     context = {
-#         "form": form,
-#         "lead": lead
-#     }
-#     return render(request, "leads/lead_update.html", context)
