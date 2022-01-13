@@ -26,7 +26,7 @@
                     <a href="#' lead.pk %}" class="flex-grow text-gray-500 border-b-2 border-orange-300 py-2 text-lg px-1">
                         Category
                     </a>
-                    <a href="#"class="flex-grow text-gray-500 border-b-2 border-orange-300 py-2 text-lg px-1">
+                    <a href="{% url 'leads:lead-update' lead.pk %}" class="flex-grow text-gray-500 border-b-2 border-orange-300 py-2 text-lg px-1">
                         Update Details
                     </a>    
                 </div>
@@ -38,9 +38,17 @@
                     <span class="text-gray-500">Phone Number</span>
                     <span class="ml-auto text-gray-900">{{ lead.phone_number }}</span>
                 </div>
-                <div class="flex border-t border-b mb-6 border-gray-300 py-2">
+                <div class="flex border-t border-gray-300 py-2">
                     <span class="text-gray-500">Last Contacted</span>
                     <span class="ml-auto text-gray-900">{{ lead.last_contacted }}</span>
+                </div>
+                <div class="flex border-t border-gray-300 py-2">
+                    <span class="text-gray-500">Status</span>
+                    <span class="ml-auto text-gray-900">{{ lead.lead_status }}</span>
+                </div>
+                <div class="flex border-t border-gray-300 py-2">
+                    <span class="text-gray-500">Source of Lead</span>
+                    <span class="ml-auto text-gray-900">{{ lead.source_of_lead }}</span>
                 </div>
             </div>
 

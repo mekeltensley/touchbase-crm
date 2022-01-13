@@ -16,7 +16,6 @@ LEAD_STATUS = {
     ('ATTEMPTED TO CONTACT', 'ATTEMPTED TO CONTACT'),
     ('CONNECTED', 'CONNECTED'),
     ('BAD TIMING', 'BAD TIMING '),
-
 }
 
 SOURCE_CHOICES = {
@@ -24,7 +23,6 @@ SOURCE_CHOICES = {
     ('GOOGLE SEARCH', 'GOOGLE SEARCH'),
     ('TWITTER', 'TWITTER'),
     ('REFERRAL', 'REFERRAL'),
-
 }
 
 
@@ -42,10 +40,8 @@ class Lead(models.Model):
     last_name = models.CharField(max_length=20)
     phone_number = models.IntegerField(default=9)
     last_contacted = models.DateTimeField(blank=True, null=True)
-    lead_status = models.CharField(LEAD_STATUS, max_length=100, blank=True)
-    source_of_lead = models.CharField(
-        SOURCE_CHOICES, max_length=100, blank=True)
-
+    lead_status = models.CharField(choices=LEAD_STATUS, blank=True, max_length=100)
+    source_of_lead = models.CharField(choices=SOURCE_CHOICES, max_length=100, blank=True)
     profile_picture = models.ImageField(blank=True, null=True)
     special_files = models.FileField(blank=True)
 
