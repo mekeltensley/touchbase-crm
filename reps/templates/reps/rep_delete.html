@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <a href="{% url "reps:rep-list" %}">Go back to contact representatives</a>
+    <hr />
+    <h1>Are you sure you want to delete a this representative?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>   
+ {% endblock content %}

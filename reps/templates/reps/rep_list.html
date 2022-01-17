@@ -31,17 +31,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for contact_rep in object_list %}
+                            {% for rep in object_list %}
                                 <tr class="bg-white">
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {{ contact_rep.user.first_name }} {{ contact_rep.user.last_name }}
+                                        {{ rep.user.first_name }} {{ rep.user.last_name }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ contact_rep.user.email }}
+                                        {{ rep.user.email }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="{% url 'reps:rep-detail' contact_rep.pk %}" class="text-indigo-600 hover:text-indigo-900">
-                                            Edit
+                                        <a href="{% url 'reps:rep-update' rep.user.pk %}" class="text-indigo-600 hover:text-indigo-900">
+                                            View this representative
                                         </a>
                                     </td>
                                 </tr>

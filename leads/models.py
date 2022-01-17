@@ -1,11 +1,13 @@
+from pyexpat import model
 from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    pass
-
+    is_admin = models.BooleanField(default=True)
+    is_contact_rep = models.BooleanField(default=False)
+    
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='userprofile')
     
@@ -32,6 +34,16 @@ SOURCE_CHOICES = {
     ('REFERRAL', 'REFERRAL'),
 }
 
+
+class Contact_Rep(models.Model):
+    # Associates 1 user to 1 Contact Rep
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    organization = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+
+
 class Lead(models.Model):
     email = models.EmailField(max_length=255)
     first_name = models.CharField(max_length=20)
@@ -43,18 +55,12 @@ class Lead(models.Model):
     profile_picture = models.ImageField(blank=True, null=True)
     special_files = models.FileField(blank=True)
     # set value of for foreign key to be null. Does not delete both lead and contact
-    contact_rep = models.ForeignKey("Contact_Rep", null=True, on_delete=models.SET_NULL)
+    contact_rep = models.ForeignKey("Contact_Rep", null=True, blank=True, on_delete=models.SET_NULL)
+    organization = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
-
-class Contact_Rep(models.Model):
-    # Associates 1 user to 1 Contact Rep
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    organization = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.user.username
 
     
 def post_user_created_signal(sender, instance, created, **kwargs):
