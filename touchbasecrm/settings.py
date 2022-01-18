@@ -2,6 +2,7 @@ from pathlib import Path
 from re import template
 import environ
 
+
 env = environ.Env(
     DEBUG=(bool, False)
 )
@@ -123,3 +124,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'leads.User'
 
 LOGIN_REDIRECT_URL = '/leads'
+LOGOUT_REDIRECT_URL = "/"
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

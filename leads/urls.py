@@ -2,7 +2,7 @@ from django.urls import path
 
 # import view pages
 from .views import ( 
-        lead_delete, lead_update, lead_list, lead_create, lead_detail,
+        AssignContactRepView, lead_delete, lead_update, lead_list, lead_create, lead_detail,
         LeadCreateView, LeadUpdateView, LeadListView, LeadDetailView, LeadDeleteView
 )
 
@@ -13,5 +13,6 @@ urlpatterns = [
     path('<int:pk>/', LeadDetailView.as_view(), name="lead-detail"),
     path('<int:pk>/update/', LeadUpdateView.as_view(), name="lead-update"),
     path('<int:pk>/delete/', LeadDeleteView.as_view(), name="lead-delete"),
-    path('create/', LeadCreateView.as_view(), name="lead-create")
+    path('create/', LeadCreateView.as_view(), name="lead-create"),
+    path('<int:pk>/assign-contact-rep/', AssignContactRepView.as_view(), name="assign-contact-rep"),
 ]

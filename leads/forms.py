@@ -1,6 +1,5 @@
-# Has all forms in one file 
 from django import forms
-from .models import LEAD_STATUS, SOURCE_CHOICES, Lead, User
+from .models import LEAD_STATUS, SOURCE_CHOICES, Lead, User, Contact_Rep
 from django.contrib.auth.forms import UserCreationForm, UsernameField
 
 
@@ -34,3 +33,11 @@ class CustomUserCreationForm(UserCreationForm):
         fields = {"username", }
         field_classes = {'username': UsernameField}
         
+class AssignContactRepForm(forms.Form):
+    representatives = forms.ModelChoiceField(queryset=Contact_Rep.objects.none())
+    
+    def __init__(self, *args, **kwargs):
+        request = kwargs.pop("request")
+        representatives = Contact_Rep.objects.filter(organization=request.user.userprofile)
+        super(AssignContactRepForm, self).__init__(*args, **kwargs)
+        self.fields["representatives"].queryset = representatives
