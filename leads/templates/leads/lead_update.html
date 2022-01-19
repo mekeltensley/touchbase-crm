@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load tailwind_filters %}
 
 
 {% block content %}
@@ -7,24 +8,22 @@
     <div class="container px-5 py-24 mx-auto">
       <div class="lg:w-4/5 mx-auto flex flex-wrap">
         <div class="w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
-            <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">{{ lead.first_name }} {{ lead.last_name }}'s Profile</h1>
+            <h1 class="text-3xl text-yellow-800 title-font mb-4">{{ lead.first_name }} {{ lead.last_name }}'s Profile</h1>
             <div class="flex mb-4">
-                <a href="{% url 'leads:lead-detail' lead.pk %}" class="flex-grow text-graye-500 border-b-2 border-orange-300 py-2 text-lg px-1">
+                <a href="{% url 'leads:lead-detail' lead.pk %}" class="flex-grow text-yellow-600 border-b-2 border-yellow-300 py-2 text-lg px-1">
                     Overview
                 </a>
-                <a href="{% url 'leads:lead-update' lead.pk %}" class="flex-grow text-gray-500 border-b-2 border-orange-500 py-2 text-lg px-1">
+                <a href="{% url 'leads:lead-update' lead.pk %}" class="flex-grow text-yellow-600 border-b-2 border-yellow-600 py-2 text-lg px-1">
                     Update Details
                 </a>
             </div>
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" class="mt-5">
                 {% csrf_token %}
-                {{ form.as_p }}
-               
-                <button type="submit" class="w-full text-white bg-yellow-800 hover:bg-yellow-500 px-3 py-2 rounded-md">Submit</button>
+                {{ form|crispy }}
+                <button type="submit" class="w-1/2 text-white bg-yellow-800 hover:bg-yellow-600 px-3 py-2 rounded-md">Submit</button>
             </form>
-            <div class="mt-5 py-5 border-t border-gray-200">
-                <a href="{% url 'leads:lead-delete' lead.pk %}" 
-                class="w-1/2 mt-3 text-white bg-yellow-800 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+            <div class="mt-5 py-5 w-1/2">
+                <a href="{% url 'leads:lead-delete' lead.pk %}" class="w-1/2 mt-3 border-0 py-2 px-6 bg-yellow-800 hover:bg-yellow-600 text-white rounded-md">
                     Delete
                 </a>
             </div>

@@ -1,8 +1,6 @@
 import random
-from django.http import request
 from django.views import generic
 from django.shortcuts import reverse
-from platformdirs import user_cache_dir
 from leads.models import Contact_Rep
 from .forms import ContactRepModelForm
 from .mixins import OrganizerAndLoginRequiredMixin
@@ -49,6 +47,10 @@ class ContactRepUpdateView(OrganizerAndLoginRequiredMixin, generic.CreateView):
     
     def get_success_url(self):
         return reverse("reps:rep-list")
+    
+    def get_queryset(self):
+        organization = self.request.user.userprofile
+        return Contact_Rep.objects.filter(organization=organization)
     
 class ContactRepDeleteView(OrganizerAndLoginRequiredMixin, generic.DeleteView):
     

@@ -1,4 +1,3 @@
-from pyexpat import model
 from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractUser
@@ -48,7 +47,7 @@ class Lead(models.Model):
     email = models.EmailField(max_length=255)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
-    phone_number = models.IntegerField(default=9)
+    phone_number = models.IntegerField(null=True, blank=True, default=None)
     last_contacted = models.DateTimeField(blank=True, null=True)
     lead_status = models.CharField(choices=LEAD_STATUS, blank=True, max_length=100)
     source_of_lead = models.CharField(choices=SOURCE_CHOICES, max_length=100, blank=True)
