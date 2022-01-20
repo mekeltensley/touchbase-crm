@@ -1,0 +1,1 @@
+web: gunicorn touchbasecrm.wsgi --log-file -
