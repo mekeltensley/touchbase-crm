@@ -1,6 +1,8 @@
 from pathlib import Path
 from re import template
 import environ
+import os
+import django_heroku
 
 
 env = environ.Env(
@@ -155,3 +157,5 @@ if not DEBUG:
     X_FRAME_OPTIONS = "DENY"
     
 ALLOWED_HOSTS = ["*"]
+
+django_heroku.settings(locals())
