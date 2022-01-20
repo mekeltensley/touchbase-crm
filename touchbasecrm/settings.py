@@ -1,7 +1,7 @@
 from pathlib import Path
 from re import template
 import environ
-
+import django_heroku
 
 env = environ.Env(
     DEBUG=(bool, False)
@@ -145,3 +145,5 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 import dj_database_url 
 prod_db  =  dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
+
+django_heroku.settings(locals())
