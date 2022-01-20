@@ -3,18 +3,18 @@
       <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
         <span class="ml-3 text-4xl text-yellow-800">Touch Base CRM</span>
       </a>
-      <nav>
+      <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
         {% if request.user.is_authenticated %}
           {% if request.user.is_admin %}
         <a href="{% url 'reps:rep-list' %}"class="mr-5 hover:text-gray-900">Contact Representatives</a>
           {% endif %}
-        <a href="{% url "leads:lead-list" %}"class="mr-5 hover:text-gray-900">Leads</a>
-
+        <a href="{% url 'leads:lead-list' %}"class="mr-5 hover:text-gray-900">Leads</a>
         <p>You are logged in: {{ request.user.username }}</p>
-        <a href="{% url 'logout' %}" class="w-full bg-yellow-800 hover:bg-yellow-600 px-3 py-1 text-white py-2 rounded-md">
+  
+        <a href="{% url 'logout' %}" class="ml-3 bg-yellow-800 hover:bg-yellow-600 px-3 py-1 text-white py-2 rounded-md">
           Logout
         </a>
-      </nav>
         {% endif %}
+      </nav>
     </div>
 </header>
