@@ -4,7 +4,6 @@ from django.http import HttpResponse
 from django.views import generic 
 from reps.mixins import OrganizerAndLoginRequiredMixin
 from .models import Lead, Contact_Rep
-from django.urls import reverse_lazy
 from .forms import LeadForm, LeadModelForm, CustomUserCreationForm, AssignContactRepForm
 
 
@@ -12,7 +11,6 @@ from .forms import LeadForm, LeadModelForm, CustomUserCreationForm, AssignContac
 class SignupView(generic.CreateView):
     template_name = "registration/signup.html"
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('login')
     
     def get_success_url(self):
          return reverse("login")
