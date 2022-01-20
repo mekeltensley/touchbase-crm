@@ -2,14 +2,15 @@ from pathlib import Path
 from re import template
 import environ
 import django_heroku
+import os
 
 env = environ.Env(
     DEBUG=(bool, False)
 )
 environ.Env.read_env()
 
-DEBUG = env('DEBUG')
-SECRET_KEY = env('SECRET_KEY')
+DEBUG = os.env('DEBUG')
+SECRET_KEY = os.env('SECRET_KEY')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -76,11 +77,11 @@ WSGI_APPLICATION = 'touchbasecrm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env("DB_NAME"),
-        'USER': env("DB_USER"),
-        'PASSWORD': env("DB_PASSWORD"),
-        'HOST': env("DB_HOST"),
-        'PORT': env("DB_PORT"),
+        'NAME': os.env("DB_NAME"),
+        'USER': os.env("DB_USER"),
+        'PASSWORD': os.env("DB_PASSWORD"),
+        'HOST': os.env("DB_HOST"),
+        'PORT': os.env("DB_PORT"),
     }
 }
 
