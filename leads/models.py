@@ -55,7 +55,7 @@ class Lead(models.Model):
     special_files = models.FileField(blank=True)
     # set value of for foreign key to be null. Does not delete both lead and contact
     contact_rep = models.ForeignKey("Contact_Rep", null=True, blank=True, on_delete=models.SET_NULL)
-    organization = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    organization = models.ForeignKey(UserProfile, null=False, on_delete=models.CASCADE)
     
 
     def __str__(self):
