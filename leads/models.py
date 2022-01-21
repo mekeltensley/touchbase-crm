@@ -48,7 +48,7 @@ class Lead(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=10, default=None)
-    last_contacted = models.CharField(max_length=50, default='01-31-2022')
+    last_contacted = models.CharField(max_length=50, default=None)
     lead_status = models.CharField(choices=LEAD_STATUS, blank=True, max_length=100)
     source_of_lead = models.CharField(choices=SOURCE_CHOICES, max_length=100, blank=True)
     profile_picture = models.ImageField(blank=True, null=True)
@@ -63,7 +63,7 @@ class Lead(models.Model):
 
     
 def post_user_created_signal(sender, instance, created, **kwargs):
-    if created:
+    if not created:
         return
     UserProfile.objects.create(user=instance)
-post_save.connect(post_user_created_signal, sender=User, dispatch_uid="post_user_created_signal")
+post_save.connect(post_user_created_signal, sender=User)
