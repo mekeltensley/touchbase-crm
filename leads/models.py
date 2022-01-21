@@ -63,7 +63,7 @@ class Lead(models.Model):
 
     
 def post_user_created_signal(sender, instance, created, **kwargs):
-    if not created:
+    if created:
         return
     UserProfile.objects.create(user=instance)
-post_save.connect(post_user_created_signal, sender=User)
+post_save.connect(post_user_created_signal, sender=User, dispatch_uid="post_user_created_signal")

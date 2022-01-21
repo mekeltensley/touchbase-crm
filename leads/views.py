@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
+from django.urls import reverse_lazy
 from django.views import generic 
 from reps.mixins import OrganizerAndLoginRequiredMixin
 from .models import Lead, Contact_Rep
@@ -69,7 +70,7 @@ class LeadCreateView(OrganizerAndLoginRequiredMixin, generic.CreateView):
     form_class = LeadModelForm
     
     def get_success_url(self):
-         return reverse("leads:lead-list") 
+         return reverse_lazy("leads:lead-list") 
 
 def lead_create(request):
     # when called, this will either create a new form and post form if set to POST
