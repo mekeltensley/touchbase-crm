@@ -1,12 +1,17 @@
 {% extends "base.html" %}
+{% load tailwind_filters %}
 
 {% block content %}
-    <a href="{% url "reps:rep-list" %}">Go back to Representative</a>
-    <hr />
-    <h1>Create a Representative</h1>
-    <form method="post">
+    <div class="flex justify-end">
+        <a href="{% url 'reps:rep-list' %}" class="bg-yellow-800 hover:bg-yellow-600 px-3 text-white py-2 rounded-md">Back to Representatives</a>
+        <a href="{% url 'leads:lead-list' %}" class="ml-3 bg-yellow-800 hover:bg-yellow-600 px-3 text-white py-2 rounded-md">Back to Leads</a>
+    </div>
+<div class="max-w-lg mx-auto">
+    <h1 class="text-3xl text-yellow-800 mt-5 mb-3">Create a Representative</h1>
+    <form method="post" class="mt-5">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
+        {{ form|crispy }}
+        <button type="submit" class="bg-yellow-800 hover:bg-yellow-600 px-3 text-white py-2 rounded-md mb-6">Submit</button>
     </form>   
+</div>
  {% endblock content %}
